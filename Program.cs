@@ -94,6 +94,20 @@ namespace LabWork
             }
             return Samples;
         }
+
+        public DigitalSignal GetDigitalSignal()
+        {
+            var SamplingFrequency = 2 * Signal.Frequency;
+            var Discharge = Math.Log2(Signal.Amplitude / 0.01);
+            var TimeInterval = new List<double>();
+            var Samples = new List<double>();
+            for (double t = 0; t <= 1 / Signal.Frequency; t += 1 / GetSamplingFrequency())
+            {
+                TimeInterval.Add(t);
+                Samples.Add(Signal.Amplitude * Math.Sin(2 * Math.PI * Signal.Frequency * t + Signal.Phase));
+            }
+            return new DigitalSignal(SamplingFrequency, Discharge, TimeInterval,Samples);
+        }
     }
     
 
